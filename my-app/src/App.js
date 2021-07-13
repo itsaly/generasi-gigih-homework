@@ -1,26 +1,17 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import data from './data.js';
 // import axios from "axios";
 
 function App() {
   const spotify_client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
   console.log(spotify_client_id);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <img src={data.album.images[1].url} alt={data.album.name} />
+      <p>Song title: {data.name}</p>
+      <p>Song artists: {data.artists[0].name}</p>
+      <button type="submit">Select</button>
     </div>
   );
 }
