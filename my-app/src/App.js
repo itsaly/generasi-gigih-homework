@@ -1,5 +1,3 @@
-// import logo from './logo.svg';
-import './App.css';
 import data from './data/track';
 import Track from './components/track';
 // import axios from "axios";
@@ -7,9 +5,10 @@ import Track from './components/track';
 function App() {
   const spotify_client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
   console.log(spotify_client_id);
+  const showTrack = data.map(track => <Track imageUrl={track.album.images[1].url} album={track.album.name} song={track.name} artist={track.artists[0].name} key={track.album.id}/>);
   return (
     <div>
-      <Track imageUrl={data.album.images[1].url} album={data.album.name} song={data.name} artist={data.artists[0].name}/>
+      {showTrack}
     </div>
   );
 }

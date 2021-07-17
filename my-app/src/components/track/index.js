@@ -1,9 +1,9 @@
-const Track = (props) => {
+const Track = ({imageUrl, album, song, artist}) => {
   return (
     <div>
-      <img src={props.imageUrl} alt={props.album} />
-      <p>Song title: {props.song}</p>
-      <p>Song artists: {props.artist}</p>
+      <img src={imageUrl} alt={album} />
+      <p>Song title: {song}</p>
+      <p>Song artists: {artist}</p>
       <button type="submit">Select</button>
     </div>
   )
