@@ -1,58 +1,38 @@
-import { Component } from "react";
+import { useState } from "react";
 import axios from 'axios';
 
 import Track from '../track';
 
-class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.token = props.token;
-    this.state = {
-      search: '',
-      tracks: null,
-    }
-  }
+const Search = (token) => {
+  const [text, setText] = useState('');
+  const [albums, setAlbums] = useState([]);
 
-  handleChange = (e) => {
-    this.setState({
-      search: e.target.value,
-    })
-  }
-
-  handleClick = async (e) => {
-    const { search } = this.state;
+  const handleChange = (event) => setText(event.target.value);
+  const getAlbums = async () => {
     const config = {
-      headers: { Authorization: `Bearer ${this.token}` }
+      headers: { Authorization: `Bearer ${token}` }
     };
-    const result = await axios.get(`https://api.spotify.com/v1/search?q=${search}&type=album,artist,track`, config);
-    // let tracksArtistsAlbums = (result.data.tracks.items.concat(result.data.artists.items)).concat(result.data.albums.items);
-    this.setState({
-      tracks: result.data.albums.items,
-    })
-
-    console.log(this.state.tracks);
+    const result = await axios.get(`https://api.spotify.com/v1/search?q=${text}&type=album,artist,track`, config);
+    setAlbums(result.data.albums.items);
   }
 
-  render() {
-    const { tracks } = this.state;
-    return(
-      <div>
-        <input type="text" onChange={this.handleChange} />
-        <button onClick={this.handleClick}>Search</button>
-        {
-          tracks && (
-            tracks.map(
-              track => {
-                return(
-                  <Track track={track} key={track.id} />
-                );
-              }
-            )
+  return(
+    <div>
+      <input type="text" onChange={handleChange} />
+      <button onClick={getAlbums}>Search</button>
+      {
+        albums && (
+          albums.map(
+            album => {
+              return(
+                <Track track={album} key={album.id} />
+              );
+            }
           )
-        }
-      </div>
-    )
-  }
+        )
+      }
+    </div>
+  )
 }
 
 export default Search;
