@@ -1,9 +1,27 @@
-const Track = ({imageUrl, album, song, artist}) => {
-  return (
+const Track = (props) => {
+  const { name, artists, images } = props.track;
+
+  return(
     <div>
-      <img src={imageUrl} alt={album} />
-      <p>Song title: {song}</p>
-      <p>Song artists: {artist}</p>
+      <img src={images[1].url} alt={name} />
+      <p>Album title: {name}</p>
+      <p>Artists: {artists[0].name}
+      {
+        (
+          artists.length > 0
+          ? (
+            artists.slice(1).map(
+              artist => {
+                return(
+                  <span key={artist.id}>, {artist.name}</span>
+                )
+              }
+            )
+          )
+          : <span>{artists[0].name}</span>
+        )
+      }
+      </p>
       <button type="submit">Select</button>
     </div>
   )
