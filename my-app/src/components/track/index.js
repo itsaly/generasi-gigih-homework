@@ -1,5 +1,18 @@
+import { useState } from "react";
+
 const Track = (props) => {
   const { name, artists, images } = props.track;
+  const [select, setSelect] = useState('Select');
+  const [selected, setSelected] = useState(false);
+
+  const handleToggle = () => {
+    if (selected) {
+      setSelect('Select');
+    } else {
+      setSelect('Deselect');
+    }
+    setSelected(!selected);
+  };
 
   return(
     <div>
@@ -22,7 +35,7 @@ const Track = (props) => {
         )
       }
       </p>
-      <button type="submit">Select</button>
+      <button onClick={handleToggle}>{select}</button>
     </div>
   )
 };
